@@ -60,6 +60,7 @@ diverges from stock Pico/Pico 2.
 boards.txt              <- generated, do not hand-edit (see tools/make_boards.py)
 platform.txt            <- build recipes, rebranded, release-mode tool paths
 tools/make_boards.py    <- regenerate boards.txt from here
+tools/git-gui.bat       <- optional GUI for commit/push/tag (see below)
 variants/kratos/        <- Kratos pinout
 variants/hermes/        <- Hermes pinout
 variants/vyper_pico/    <- Vyper Pico pinout
@@ -74,6 +75,15 @@ package/package_kratos_hermes_vyper_index.template.json
 .github/workflows/release.yml
                          <- builds + publishes a release on every `git tag vX.Y.Z push`
 ```
+
+## GUI helper (optional)
+
+`tools/git-gui.bat` — double-click it to open a small window with buttons
+for Refresh/Status, Commit All Changes, Push, Tag && Release, and Pull.
+No installs needed (just PowerShell + .NET, already on Windows). It bakes
+in fixes for the exact mistakes that come up doing this by hand: missing
+`origin` remote, branch named `master` instead of `main`, and rejected
+non-fast-forward pushes — each pops a dialog instead of a raw git error.
 
 ## One-time setup (you do this once)
 
