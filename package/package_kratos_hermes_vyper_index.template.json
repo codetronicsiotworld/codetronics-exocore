@@ -1,7 +1,7 @@
 {
    "packages": [
       {
-         "name": "kratos-hermes-vyper",
+         "name": "codetronics-exocore",
          "maintainer": "Ian Goh",
          "websiteURL": "https://github.com/codetronicsiotworld/codetronics-exocore",
          "email": "iangoh0520@gmail.com",
@@ -11,7 +11,7 @@
          "platforms": [
             {
                "category": "RP2040/RP2350 Boards",
-               "name": "Kratos / Hermes / Vyper Pico",
+               "name": "Codetronics Exocore",
                "url": "",
                "version": "",
                "architecture": "rp2040",
@@ -31,37 +31,37 @@
                ],
                "toolsDependencies": [
                   {
-                     "packager": "kratos-hermes-vyper",
+                     "packager": "codetronics-exocore",
                      "version": "4.1.0-1aec55e",
                      "name": "pqt-gcc"
                   },
                   {
-                     "packager": "kratos-hermes-vyper",
+                     "packager": "codetronics-exocore",
                      "version": "4.1.0-1aec55e",
                      "name": "pqt-picotool"
                   },
                   {
-                     "packager": "kratos-hermes-vyper",
+                     "packager": "codetronics-exocore",
                      "version": "4.1.0-1aec55e",
                      "name": "pqt-openocd"
                   },
                   {
-                     "packager": "kratos-hermes-vyper",
+                     "packager": "codetronics-exocore",
                      "version": "1.0.1-base-3a57aed-1",
                      "name": "pqt-python3"
                   },
                   {
-                     "packager": "kratos-hermes-vyper",
+                     "packager": "codetronics-exocore",
                      "version": "4.1.0-1aec55e",
                      "name": "pqt-gcc-riscv"
                   },
                   {
-                     "packager": "kratos-hermes-vyper",
+                     "packager": "codetronics-exocore",
                      "version": "4.1.0-1aec55e",
                      "name": "pqt-pioasm"
                   },
                   {
-                     "packager": "kratos-hermes-vyper",
+                     "packager": "codetronics-exocore",
                      "version": "4.1.0-1aec55e",
                      "name": "pqt-mklittlefs"
                   }
