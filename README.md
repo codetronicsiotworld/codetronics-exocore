@@ -75,21 +75,22 @@ package/package_kratos_hermes_vyper_index.template.json
 
 ## One-time setup (you do this once)
 
-1. Create a new **public** GitHub repository (Boards Manager needs to fetch
+This folder is already a git repo with commits, and
+`package/package_kratos_hermes_vyper_index.template.json` already has
+`codetronicsiotworld/codetronics-exocore` baked in. All you need to do:
+
+1. Create a new **public** GitHub repository named `codetronics-exocore`
+   under the `codetronicsiotworld` account (Boards Manager needs to fetch
    a public URL — private repos won't work without extra auth plumbing).
-2. Inside this folder:
+   Do **not** initialize it with a README/.gitignore/license — this repo
+   already has all three, and letting GitHub generate its own creates a
+   conflicting initial commit.
+2. Push:
    ```bash
-   git init
-   git remote add origin https://github.com/<you>/<repo>.git
-   git add -A
-   git commit -m "Initial Kratos/Hermes/Vyper Pico board package"
+   git remote add origin https://github.com/codetronicsiotworld/codetronics-exocore.git
    git branch -M main
    git push -u origin main
    ```
-3. Edit `package/package_kratos_hermes_vyper_index.template.json`: replace
-   `YOUR_GITHUB_USERNAME` and the repo name placeholders with your real
-   values (or just re-run `python3 tools/... ` — see `tools/make_boards.py`
-   comments — whichever you find easier). Commit and push that change.
 
 ## Cutting a release (this is your "one click" moment)
 
@@ -116,7 +117,7 @@ rebuilding GCC).
 
 1. File → Preferences → **Additional Boards Manager URLs**, add:
    ```
-   https://raw.githubusercontent.com/<you>/<repo>/main/package_kratos_hermes_vyper_index.json
+   https://raw.githubusercontent.com/codetronicsiotworld/codetronics-exocore/main/package_kratos_hermes_vyper_index.json
    ```
 2. Tools → Board → Boards Manager → search "Kratos" → Install.
 3. Tools → Board → select **Kratos**, **Hermes**, or **Vyper Pico**.

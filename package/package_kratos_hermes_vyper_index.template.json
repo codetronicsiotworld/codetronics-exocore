@@ -3,10 +3,10 @@
       {
          "name": "kratos-hermes-vyper",
          "maintainer": "Ian Goh",
-         "websiteURL": "https://github.com/YOUR_GITHUB_USERNAME/kratos-hermes-vyper-boards",
+         "websiteURL": "https://github.com/codetronicsiotworld/codetronics-exocore",
          "email": "iangoh0520@gmail.com",
          "help": {
-            "online": "https://github.com/YOUR_GITHUB_USERNAME/kratos-hermes-vyper-boards#readme"
+            "online": "https://github.com/codetronicsiotworld/codetronics-exocore#readme"
          },
          "platforms": [
             {
@@ -67,7 +67,7 @@
                   }
                ],
                "help": {
-                  "online": "https://github.com/YOUR_GITHUB_USERNAME/kratos-hermes-vyper-boards#readme"
+                  "online": "https://github.com/codetronicsiotworld/codetronics-exocore#readme"
                }
             }
          ],
