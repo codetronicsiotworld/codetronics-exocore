@@ -11,3 +11,14 @@ tools/libpico/build-rp2040
 tools/libpico/build-rp2350
 tools/libpico/build-rp2350-riscv
 platform.local.txt
+
+# IDE / OS cruft
+.vscode/
+Thumbs.db
+*.swp
+
+# local arduino-cli / Arduino IDE build output, if you ever build from this checkout directly
+build/
+*.uf2
+*.elf
+*.bin.signed
