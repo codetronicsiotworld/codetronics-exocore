@@ -1,0 +1,5 @@
+#pragma once
+#define ARDUINO_PICO_MAJOR 5
+#define ARDUINO_PICO_MINOR 6
+#define ARDUINO_PICO_REVISION 1
+#define ARDUINO_PICO_VERSION_STR "5.6.1"

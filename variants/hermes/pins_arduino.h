@@ -1,0 +1,42 @@
+#pragma once
+
+// Hermes (RP2350) -- pinout mirrors the stock Raspberry Pi Pico 2 1:1.
+// Source: https://datasheets.raspberrypi.org/pico/pico-2-datasheet.pdf
+// TODO: replace with your own silkscreen/schematic reference once the
+// board is finalized, and correct any pin that deviates from stock Pico 2.
+
+#define PICO_RP2350A 1
+
+// LEDs
+#define PIN_LED        (25u)
+
+// Serial
+#define PIN_SERIAL1_TX (0u)
+#define PIN_SERIAL1_RX (1u)
+
+#define PIN_SERIAL2_TX (8u)
+#define PIN_SERIAL2_RX (9u)
+
+// SPI
+#define PIN_SPI0_MISO  (16u)
+#define PIN_SPI0_MOSI  (19u)
+#define PIN_SPI0_SCK   (18u)
+#define PIN_SPI0_SS    (17u)
+
+#define PIN_SPI1_MISO  (12u)
+#define PIN_SPI1_MOSI  (15u)
+#define PIN_SPI1_SCK   (14u)
+#define PIN_SPI1_SS    (13u)
+
+// Wire
+#define PIN_WIRE0_SDA  (4u)
+#define PIN_WIRE0_SCL  (5u)
+
+#define PIN_WIRE1_SDA  (26u)
+#define PIN_WIRE1_SCL  (27u)
+
+#define SERIAL_HOWMANY (3u)
+#define SPI_HOWMANY    (2u)
+#define WIRE_HOWMANY   (2u)
+
+#include "../generic/common.h"

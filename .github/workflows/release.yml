@@ -1,0 +1,108 @@
+name: Build and publish Boards Manager release
+
+# Trigger: push a tag like v1.0.0 (or v1.0.1, v2.0.0, ...)
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (with submodules -- pico-sdk, ArduinoCore-API, etc.)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Determine version
+        id: ver
+        run: |
+          VER="${GITHUB_REF_NAME#v}"
+          echo "version=$VER" >> "$GITHUB_OUTPUT"
+          echo "Building release for version $VER"
+
+      - name: Package archive (boards.txt, platform.txt, cores, variants, pico-sdk, ...)
+        id: pkg
+        run: |
+          set -e
+          PKG_NAME="kratos-hermes-vyper-boards-${{ steps.ver.outputs.version }}"
+          OUTDIR="/tmp/$PKG_NAME"
+          mkdir -p "$OUTDIR"
+
+          # Same exclusion policy as upstream arduino-pico's release packaging:
+          # ship everything needed to compile, drop repo/CI plumbing.
+          rsync -a -L \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='package' \
+            --exclude='*.md' \
+            ./ "$OUTDIR"/
+
+          cd /tmp
+          zip -qr "${PKG_NAME}.zip" "$PKG_NAME"
+
+          SHA=$(sha256sum "${PKG_NAME}.zip" | cut -d ' ' -f1)
+          SIZE=$(stat -c%s "${PKG_NAME}.zip")
+
+          echo "zip_path=/tmp/${PKG_NAME}.zip" >> "$GITHUB_OUTPUT"
+          echo "zip_name=${PKG_NAME}.zip" >> "$GITHUB_OUTPUT"
+          echo "sha256=$SHA" >> "$GITHUB_OUTPUT"
+          echo "size=$SIZE" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release and upload zip
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.pkg.outputs.zip_path }}
+          generate_release_notes: true
+
+      - name: Fill in package index JSON
+        run: |
+          set -e
+          REPO="${{ github.repository }}"
+          VERSION="${{ steps.ver.outputs.version }}"
+          ZIP_NAME="${{ steps.pkg.outputs.zip_name }}"
+          SHA="${{ steps.pkg.outputs.sha256 }}"
+          SIZE="${{ steps.pkg.outputs.size }}"
+          URL="https://github.com/${REPO}/releases/download/v${VERSION}/${ZIP_NAME}"
+
+          jq --arg url "$URL" \
+             --arg ver "$VERSION" \
+             --arg archive "$ZIP_NAME" \
+             --arg sha "sha256:$SHA" \
+             --arg size "$SIZE" \
+             '.packages[0].platforms[0].url = $url
+              | .packages[0].platforms[0].version = $ver
+              | .packages[0].platforms[0].archiveFileName = $archive
+              | .packages[0].platforms[0].checksum = ("SHA-256:" + $sha[7:])
+              | .packages[0].platforms[0].size = $size' \
+             package/package_kratos_hermes_vyper_index.template.json > /tmp/new_index.json
+
+          # Merge with the previously published index (if one exists on main)
+          # so Boards Manager keeps offering older versions too.
+          if git show origin/main:package_kratos_hermes_vyper_index.json > /tmp/old_index.json 2>/dev/null; then
+            python3 package/merge_packages.py /tmp/new_index.json /tmp/old_index.json > /tmp/merged_index.json
+            mv /tmp/merged_index.json package_kratos_hermes_vyper_index.json
+          else
+            mv /tmp/new_index.json package_kratos_hermes_vyper_index.json
+          fi
+
+          jq empty package_kratos_hermes_vyper_index.json  # validate
+
+      - name: Commit updated index to main
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git checkout main
+          git add package_kratos_hermes_vyper_index.json
+          git commit -m "Publish package index for v${{ steps.ver.outputs.version }}" || echo "nothing to commit"
+          git push origin main
