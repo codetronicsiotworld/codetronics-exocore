@@ -2,13 +2,74 @@
   "packages": [
     {
       "name": "codetronics-exocore",
-      "maintainer": "Ian Goh",
+      "maintainer": "Codetronics",
       "websiteURL": "https://github.com/codetronicsiotworld/codetronics-exocore",
-      "email": "iangoh0520@gmail.com",
+      "email": "CHANGE_ME@your-domain.example",
       "help": {
         "online": "https://github.com/codetronicsiotworld/codetronics-exocore#readme"
       },
       "platforms": [
+        {
+          "category": "RP2040/RP2350 Boards",
+          "name": "Codetronics Exocore",
+          "url": "https://github.com/codetronicsiotworld/codetronics-exocore/releases/download/v1.0.3/kratos-hermes-vyper-boards-1.0.3.zip",
+          "version": "1.0.3",
+          "architecture": "rp2040",
+          "archiveFileName": "kratos-hermes-vyper-boards-1.0.3.zip",
+          "checksum": "SHA-256:d66a8094db7d8d5337ed67be679c8fb00eedb74380549ea1e33ca60208ad3c69",
+          "size": "116089554",
+          "boards": [
+            {
+              "name": "Kratos"
+            },
+            {
+              "name": "Hermes"
+            },
+            {
+              "name": "Vyper Pico"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "codetronics-exocore",
+              "version": "4.1.0-1aec55e",
+              "name": "pqt-gcc"
+            },
+            {
+              "packager": "codetronics-exocore",
+              "version": "4.1.0-1aec55e",
+              "name": "pqt-picotool"
+            },
+            {
+              "packager": "codetronics-exocore",
+              "version": "4.1.0-1aec55e",
+              "name": "pqt-openocd"
+            },
+            {
+              "packager": "codetronics-exocore",
+              "version": "1.0.1-base-3a57aed-1",
+              "name": "pqt-python3"
+            },
+            {
+              "packager": "codetronics-exocore",
+              "version": "4.1.0-1aec55e",
+              "name": "pqt-gcc-riscv"
+            },
+            {
+              "packager": "codetronics-exocore",
+              "version": "4.1.0-1aec55e",
+              "name": "pqt-pioasm"
+            },
+            {
+              "packager": "codetronics-exocore",
+              "version": "4.1.0-1aec55e",
+              "name": "pqt-mklittlefs"
+            }
+          ],
+          "help": {
+            "online": "https://github.com/codetronicsiotworld/codetronics-exocore#readme"
+          }
+        },
         {
           "category": "RP2040/RP2350 Boards",
           "name": "Codetronics Exocore",
