@@ -165,10 +165,10 @@ URL, same install flow).
   Trivial to add back as a menu in `tools/make_boards.py` if you ever want
   it.
 
-Confidence: boards.txt/platform.txt structure and property resolution
-verified directly against the upstream generator (`tools/makeboards.py`)
-and the actual generated entries for the official Raspberry Pi Pico /
-Pico 2 boards — this is not a guess at the file format. Unverified:
-whether your actual PCBs' pinouts, and their real VID/PID choices, match
-what's currently checked in (placeholders, by design, per your answer to
-skip custom pin mapping for now).
+Note: `boards.txt`/`platform.txt` structure and property resolution were
+verified directly against upstream's generator (`tools/makeboards.py`) and
+the actual generated entries for the official Raspberry Pi Pico / Pico 2
+boards, not guessed at. The one thing NOT independently verified is
+whether the pinouts and VID/PID values below actually match the production
+PCBs — see "Pin mapping" above, they're currently placeholders mirroring
+stock Pico/Pico 2 by design, pending real schematics.

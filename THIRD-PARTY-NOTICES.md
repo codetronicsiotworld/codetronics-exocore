@@ -3,7 +3,7 @@
 This package bundles code from multiple upstream projects. Licenses are NOT
 uniform across the tree -- do not assume "the whole repo is LGPL 2.1."
 Confidence levels below reflect what was actually read in this repo vs.
-general public knowledge that was not re-verified this session.
+general public knowledge that has not been independently re-verified.
 
 ## Verified directly (license file read in this repo)
 
@@ -13,7 +13,7 @@ general public knowledge that was not re-verified this session.
 | HID_Keyboard / HID_Mouse / HID_Joystick (earlephilhower forks) | `libraries/Keyboard`, `libraries/Mouse`, `libraries/HID_Joystick`, `libraries/KeyboardBLE`, `libraries/KeyboardBT`, etc. | LGPL **v3** (different version than the core -- has anti-tivoization / "Installation Information" clause for consumer devices) |
 | http-parser | `libraries/http-parser` | MIT (`LICENSE-MIT`) |
 
-## Not re-verified this session (well-established public licenses, confirm before shipping)
+## Not independently re-verified (well-established public licenses, confirm before shipping)
 
 | Component | Expected license | Why it matters |
 |---|---|---|

@@ -10,25 +10,30 @@ Design intent (per board spec):
     (200MHz for RP2040, 150MHz for RP2350) -- i.e. no "(Overclock)"
     entries exist at all, so it is architecturally impossible to
     select an overclocked state from this menu.
-  - Flash is fixed at 2MB total / 1MB sketch / 1MB LittleFS.
+  - Flash total is fixed at 2MB per board; the sketch/filesystem split
+    is set per board below (see FS_SIZE in BOARDS).
   - Optimize is fixed at -O3.
   - Boot stage 2 is fixed. NOTE: RP2350 (Hermes) has no boot2 concept
     (build.boot2=none) -- its boot ROM parses flash directly. See
     README "Technical corrections" section.
 """
 
+import os
+
 RP2040_FREQS = [100, 50, 120, 125, 128, 133, 150, 176, 200]   # 100 first = default
 RP2350_FREQS = [100, 50, 120, 125, 128, 133, 150]             # 100 first = default
 
-# (board_id, pretty_name, chip, boot2, usb_pid_base)
+ONE_MB = 1024 * 1024
+KB128 = 128 * 1024
+
+# (board_id, pretty_name, chip, boot2, usb_pid_base, fs_size_bytes)
 BOARDS = [
-    ("kratos",     "Kratos",     "rp2040", "boot2_w25q16jvxq_4_padded_checksum", "0xa001"),
-    ("hermes",     "Hermes",     "rp2350", None,                                  "0xa002"),
-    ("vyperpico",  "Vyper Pico", "rp2040", "boot2_w25q16jvxq_4_padded_checksum", "0xa003"),
+    ("kratos",     "Kratos",     "rp2040", "boot2_w25q16jvxq_4_padded_checksum", "0xa001", KB128),
+    ("hermes",     "Hermes",     "rp2350", None,                                  "0xa002", ONE_MB),
+    ("vyperpico",  "Vyper Pico", "rp2040", "boot2_w25q16jvxq_4_padded_checksum", "0xa003", ONE_MB),
 ]
 
 FLASH_TOTAL = 2 * 1024 * 1024
-FS_SIZE = 1 * 1024 * 1024
 BASE_ADDR = 0x10000000
 DELTA = {"rp2040": 4096, "rp2350": 8192}
 
@@ -48,13 +53,13 @@ w()
 w("menu.freq=CPU Speed")
 w()
 
-for board_id, pretty, chip, boot2, pid in BOARDS:
+for board_id, pretty, chip, boot2, pid, fs_size in BOARDS:
     variant = {"kratos": "kratos", "hermes": "hermes", "vyperpico": "vyper_pico"}[board_id]
     delta = DELTA[chip]
     eeprom_start = BASE_ADDR + FLASH_TOTAL - delta
-    fs_start = eeprom_start - FS_SIZE
+    fs_start = eeprom_start - fs_size
     fs_end = eeprom_start
-    flash_length = FLASH_TOTAL - delta - FS_SIZE
+    flash_length = FLASH_TOTAL - delta - fs_size
 
     w("# -----------------------------------")
     w(f"# {pretty}")
@@ -145,7 +150,9 @@ for board_id, pretty, chip, boot2, pid in BOARDS:
 
     w()
 
-with open("/tmp/board-pkg/boards.txt", "w") as f:
+repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+out_path = os.path.join(repo_root, "boards.txt")
+with open(out_path, "w") as f:
     f.write("\n".join(out) + "\n")
 
-print("wrote", len(out), "lines")
+print("wrote", len(out), "lines to", out_path)

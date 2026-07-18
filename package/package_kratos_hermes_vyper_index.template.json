@@ -2,9 +2,9 @@
    "packages": [
       {
          "name": "codetronics-exocore",
-         "maintainer": "Ian Goh",
+         "maintainer": "Codetronics",
          "websiteURL": "https://github.com/codetronicsiotworld/codetronics-exocore",
-         "email": "iangoh0520@gmail.com",
+         "email": "CHANGE_ME@your-domain.example",
          "help": {
             "online": "https://github.com/codetronicsiotworld/codetronics-exocore#readme"
          },
